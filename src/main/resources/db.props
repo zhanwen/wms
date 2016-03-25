@@ -1,0 +1,5 @@
+#DB properties:
+db.driver=com.mysql.jdbc.Driver
+db.jdbcUrl=jdbc:mysql://localhost:3306/wms
+db.username=root
+db.password=root
