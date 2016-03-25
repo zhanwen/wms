@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<link rel="stylesheet" href="../s/easyui/themes/default/easyui.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../s/easyui/themes/icon.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../s/css/main.css" type="text/css" media="screen" />
+	<script src="../s/easyui/jquery.min.js"></script>
+	<script src="../s/easyui/jquery.easyui.min.js"></script>
+	<script src="../s/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type = "text/javascript" src = "../s/js/ext$.js"></script>
+	<script src="../s/polymer-1.2.3/webcomponents-lite.min.js"></script>
+	<link rel="import" href="c/main-north.html">
+	<title>仓库管理系统</title>
+    <script type="text/javascript">
+    	var contextPath =  ext$.getRootpath();
+    	function tabCreate(tabTitle,app){
+    		$('#workspace').html("<"+app+" title="+tabTitle+" ></"+app+">");
+    	}
+    	$.parser.onComplete = function(){
+        	$('body').css('visibility','visible');
+        	setTimeout(function(){
+         	$('#loading-mask').remove();
+        	},50);
+    	};
+    	$(function(){
+        	$(window).resize(function(){
+            	$('#mainlayout').layout('resize');
+        	});
+    	});
+    </script>
+	
+</head>
+ <body style="margin:0;padding:0;height:100%;overflow:hidden;background:#F2FBFF">
+   		<div class="mainwrap">
+   			<div id="mainlayout" class="easyui-layout" fit="true">
+   				<div region="north" border="false" style="height:94px;background:#A1C4ff">
+   					<!-- <jsp:include page="_north.jsp"></jsp:include> -->
+   					<main-north></main-north>
+   				</div>
+    			<div id="workspace" region="center" border="false" style="overflow:hidden">
+    				<!--<decorator:body />-->
+    			</div>
+   			</div>
+   		</div>
+    </body>
+</html>
