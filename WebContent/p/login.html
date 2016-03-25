@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>仓库管理系统</title>
+	<link rel="stylesheet" href="../s/easyui/themes/default/easyui.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../s/easyui/themes/icon.css" type="text/css" media="screen" />
+	<link rel="stylesheet" href="../s/css/main.css" type="text/css" media="screen" />
+	<script src="../s/easyui/jquery.min.js"></script>
+	<script src="../s/easyui/jquery.easyui.min.js"></script>
+	<script src="../s/easyui/locale/easyui-lang-zh_CN.js"></script>
+	<script type = "text/javascript" src = "../s/js/ext$.js"></script>
+	<script type = "text/javascript" >
+	function verify() {
+		var d=$("#loginForm").serialize();
+		var url = ext$.getRootpath()+"/home/login.json";  
+		ext$.post(url, d, islogin);
+	}
+	function islogin(result) {
+		var data = JSON.parse(result.toString());
+		var resultObj = $("#result");
+		if(data.success == true){
+			window.location.href= ext$.getRootpath()+"/p/main.html";
+			return;
+		}  
+		if(data.success == false){
+			resultObj.html(data.userName+":"+data.msgString);
+			return;
+		}
+	}
+
+	
+	</script>
+</head>
+<body style="visibility:visible">
+	<div class="easyui-dialog" style="width:500px;height:300px;background:#fafafa;overflow:hidden"
+			title="登录系统" closable="false" border="false">
+		<div class="header" style="height:60px;">
+			<div class="toptitle">仓库管理系统</div>
+		</div>
+		<p><label id = "result"></label>
+		<div style="padding:60px 0;">
+			<form action="" method="post" id="loginForm">
+				<div style="padding-left:150px">
+					<table cellpadding="0" cellspacing="3">
+						<tr>
+							<td>登录帐号</td>
+							<td><input name="username"></input></td>
+						</tr>
+						<tr>
+							<td>登录密码</td>
+							<td><input type="password" name="password"></input></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td></td>
+						</tr>
+						<tr>
+							<td></td>
+							<td>
+								<input class="login" type="submit" value="" style="width:74px;height:21px;border:0" onclick = "verify()"></input>
+							</td>
+						</tr>
+					</table>
+				</div>
+				
+			</form>
+		</div>
+	</div>
+</body>
+</html>
