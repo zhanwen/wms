@@ -1,0 +1,80 @@
+
+<link rel="import" href="../../s/polymer-1.2.3/polymer.html">
+<link rel="stylesheet" href="../../s/easyui/themes/default/easyui.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../s/easyui/themes/icon.css" type="text/css" media="screen" />
+<link rel="stylesheet" href="../../s/css/main.css" type="text/css" media="screen" />
+<dom-module id="main-north"> 
+	<template>
+		<div class="header">
+			<div style="padding: 10px; text-align: right;">
+				<span style="color: #ddd">欢迎你，{{owner}}</span> <a id="logout"
+				    href="javascript:void(0);"
+					 style="color: #fff">退出</a>
+			</div>
+			<div class="toptitle">仓库管理系统</div>
+		</div>
+		<div class="topmenu">
+			<a href="#" class="easyui-linkbutton" plain="true">首页</a> <a href="#"
+				class="easyui-menubutton" menu="#menu-stock">业务单据</a> <a href="#"
+				class="easyui-menubutton" menu="#menu-data">数据维护</a> <a href="#"
+				class="easyui-menubutton" menu="#menu-system">系统管理</a>
+		</div>
+		
+		<div id="menu-stock" class="easyui-menu" style="width: 150px">
+			<div href="">采购入库单</div>
+			<div href="">销售出库单</div>
+			<div href="">商品调拨单</div>
+		</div>
+		<div id="menu-data" class="easyui-menu" style="width: 150px">
+			<div href="">仓库资料</div>
+			<div href="">计量单位</div>
+			<div class="menu-sep"></div>
+			<div href="">商品分类</div>
+			<div href="">商品资料</div>
+			<div class="menu-sep"></div>
+			<div href="">往来单位分类</div>
+			<div href="">往来单位</div>
+		</div>
+		<div id="menu-system" class="easyui-menu" style="width: 150px">
+			<div app="system-user">用户管理</div>
+			<div app="system-role">角色管理</div>
+			<div app="system-privilege">权限管理</div>
+			<div app="system-department">组织机构</div>
+		</div>
+	</template> 
+	<script>
+    Polymer({
+      is: "main-north",
+      ready:function() {
+    	  self=this;
+    	  this.$$('#menu-system > div').click(function(){
+        	  var tabTitle = $(this).text();
+        	  var url = $(this).attr("app");
+        	  tabCreate(tabTitle,url);
+          };
+          this.$$('logout').click(function(){
+        	 $.setCookie("sessionId", 1, -1);
+        	 window.location.href= ext$.getRootpath()+"/p/login.html";
+          };
+    	  ext$.get(ext$.getRootpath()+"/home/getme",'',function(result){
+    		  var data = JSON.parse(result.toString());
+    		  if(data.success == false){
+    			  window.location.href= ext$.getRootpath()+"/p/login.html";
+    			return;
+    			}  
+    		  if(data.success == true){
+    			  self.owner=data.userName;
+    		  }
+    	  });
+      },
+      properties: {
+    	  owner:{
+    		  type: String,
+              value: ""
+    	  }
+      }
+    
+    });
+  </script>
+</dom-module>
+
